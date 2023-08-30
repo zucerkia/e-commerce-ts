@@ -1,0 +1,22 @@
+.header {
+  background-color: var(--secondary);
+  display: flex;
+  padding: 0.5rem 3rem;
+  justify-content: space-between;
+  align-items: center;
+  height: 96px;
+}
+
+.header-logo {
+  width: 4rem;
+  height: 4rem;
+  display: grid;
+  place-content: center;
+  background-color: var(--primary);
+  padding: 1rem;
+  border-radius: 50%;
+}
+
+.header-icon {
+  color: var(--white);
+}
