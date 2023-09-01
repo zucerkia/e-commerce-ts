@@ -1,16 +1,4 @@
-export interface Product {
-    id?: number,
-    title: string;
-    description: string;
-    price: number;
-    thumbnail: string;
-    discountPercentage?: number;
-    rating?: number
-    stock?: number
-    brand?: string
-    category?: string
-    images?: string[]
-  }
+import { ProductResponse } from "../api/ResponseTypes/ProductsResponse"
 
-  
+export type Product = Pick<ProductResponse, 'description' | 'price' | 'title' | 'thumbnail'>
 export type Products = Product[]

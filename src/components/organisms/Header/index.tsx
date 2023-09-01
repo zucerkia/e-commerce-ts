@@ -1,8 +1,8 @@
-import React from "react";
 import Nav from "../../molecules/Nav";
 
-import { header, headerLogo, headerIcon } from "./Header.module.css";
+import styles from "./Header.module.css";
 
+const { header, headerLogo } = styles;
 const Header = () => {
   return (
     <header className={header}>

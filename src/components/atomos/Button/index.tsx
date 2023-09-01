@@ -1,11 +1,12 @@
 import React from "react";
 
-import { button, primary, secondary } from "./Button.module.css";
+import styles from "./Button.module.css";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   as?: "primary" | "secondary";
 }
 
+const { button, primary, secondary } = styles;
 export const Button = ({ as = "primary", children, ...rest }: ButtonProps) => {
   const styles = {
     primary: primary,

@@ -8,21 +8,26 @@ import { currency } from "../../../Utils/currency";
 import { Product } from "../../../types/Products";
 
 // Styles
-import {
-  product as productStyle,
-  productImage,
-  productBody,
-  productInfo,
-  productFooter,
-} from "./Product.module.css";
+import styles from "./Product.module.css";
+import { useModal } from "../../../hooks/useModal";
 
 interface ProductProps {
   product: Product;
 }
 
+const {
+  product: productStyle,
+  productImage,
+  productBody,
+  productInfo,
+  productFooter,
+} = styles;
+
 const ProductCard = ({ product: productObj }: ProductProps): JSX.Element => {
+  const { Modal, openModal } = useModal(<p>Hola mundo</p>);
   return (
     <div className={productStyle}>
+      <Modal />
       <div className={productImage}>
         <img src={productObj.thumbnail} alt="" />
       </div>
@@ -34,7 +39,7 @@ const ProductCard = ({ product: productObj }: ProductProps): JSX.Element => {
         </div>
         <div className={productFooter}>
           {/* <Button onClick={() => addToCart(product)}>Añadir al carrito</Button> */}
-          <Button>Añadir al carrito</Button>
+          <Button onClick={openModal}>Añadir al carrito</Button>
           <a>Ver mas</a>
         </div>
       </div>
