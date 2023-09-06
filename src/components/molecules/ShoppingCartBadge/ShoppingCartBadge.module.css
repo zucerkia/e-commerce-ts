@@ -1,0 +1,23 @@
+.cart-button {
+  position: relative;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cart-icon {
+  color: var(--white);
+}
+
+.cart-badge {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-content: center;
+  top: -10px;
+  right: -10px;
+  background: var(--white);
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+}

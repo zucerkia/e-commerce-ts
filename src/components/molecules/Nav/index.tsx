@@ -1,3 +1,4 @@
+import { ShoppingCartBadge } from "..";
 import { useModal } from "../../../hooks/useModal";
 import { Button } from "../../atomos/Button";
 
@@ -22,6 +23,7 @@ const Nav = () => {
           <a>Contáctenos</a>
         </li>
       </ul>
+      <ShoppingCartBadge />
       {/* <CartButton /> */}
       {!getAuth ? (
         <div>

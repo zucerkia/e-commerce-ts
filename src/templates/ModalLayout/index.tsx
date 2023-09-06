@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import { Button } from "../../components/atomos/Button";
+import Icon from "../../components/atomos/Icon";
 
 import styles from "./ModalLayout.module.css";
 
@@ -29,7 +30,7 @@ const ModalLayout = ({
       <div className={modalOverlay} onClick={onClose}></div>
       <div className={modal}>
         <div className={modalHeader}>
-          {/* <Icon icon="fa-xmark" size="18px" @click="close" /> */}
+          <Icon name="xmark" size="18px" onClick={onClose} />
         </div>
         <div className={modalBody}>{children}</div>
         <div className={modalFooter}>
