@@ -1,55 +1,70 @@
 import { PropsWithChildren, createContext, useState } from "react";
-import { ShoppingCart } from "../types/ShoppingCart";
 import { Product } from "../types/Products";
+import { ShoppingCart } from "../types/ShoppingCart";
 
-// const emptyCart: ShoppingCart = {
-//   products: {
-//     0: {
-//       item: {
-//         title: "producto 1",
-//         description: "lorem",
-//         thumbnail: "",
-//         price: 0,
-//       },
-//       quantity: 0,
-//     },
-//   },
-//   total: 0,
-// };
-
-const emptyCart: ShoppingCart = {
-  products: {},
-  total: 0,
+type ShoppingCartContext = {
+  shoppingCart: ShoppingCart;
+  addToCart: (product: Product) => void;
+  deleteItem: (id: number) => void;
 };
 
-export const ShoppingCartContext = createContext(emptyCart);
+const initialValue = {
+  shoppingCart: {
+    items: {},
+    total: 0,
+  },
+  addToCart: () => null,
+  deleteItem: () => null,
+};
+
+export const ShoppingCartContext =
+  createContext<ShoppingCartContext>(initialValue);
 
 export const ShoppingCartProvider = ({ children }: PropsWithChildren) => {
+  const [shoppingCart, setShoppingCart] = useState<ShoppingCart>(
+    initialValue.shoppingCart
+  );
 
-    const [shoppingCart, setShoppingCart] = useState<ShoppingCart>()
+  /* 
+  TODO: 
+    ¿Como calcular el precio cuando se tiene multiple cantidad de un mismo producto? 
+    ¿será mejor tener una nueva propiedad en el objeto que tenga un subtotal?
+  */
+  const addToCart = (product: Product) => {
+    setShoppingCart(({ items, total }) => {
+      const newTotal = total;
+      let newItem = { product, quantity: 1 };
 
-    const addToCart = (product: Product) => {
+      if (items[product.id]) {
+        newItem = { ...items[product.id] };
+        newItem.quantity += 1;
+      }
 
-        const value = {
-            item: product,
-            quantity: 0
-        }
+      return {
+        items: { ...items, [product.id]: newItem },
+        total: newTotal + 1,
+      };
+    });
+  };
 
-        setShoppingCart((oldValue) => {
-            if(!shoppingCart?.products[product.id]) {
-                oldValue?.products[product.id] = value
-                return (
-                    {
-                        products: 
-                    }
-                )
-            }
-        })
-    }
+  const deleteItem = (id: number) => {
+    setShoppingCart(({ items, total }) => {
+      const totalItem = items[id].quantity;
 
+      const newItems = { ...items };
+      delete newItems[id];
+
+      return {
+        items: newItems,
+        total: total - totalItem,
+      };
+    });
+  };
 
   return (
-    <ShoppingCartContext.Provider value={emptyCart}>
+    <ShoppingCartContext.Provider
+      value={{ shoppingCart, addToCart, deleteItem }}
+    >
       {children}
     </ShoppingCartContext.Provider>
   );

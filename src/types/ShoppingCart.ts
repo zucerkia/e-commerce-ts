@@ -1,11 +1,11 @@
 import { Product } from "./Products"
 
 type ShoppingCartItem = { [x: string]: {
-    item: Product,
+    product: Product,
     quantity: number
 } }
 
 export interface ShoppingCart {
-    products: ShoppingCartItem
+    items: ShoppingCartItem
     total: number
 }

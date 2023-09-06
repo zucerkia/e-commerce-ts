@@ -9,7 +9,9 @@ import { Product } from "../../../types/Products";
 
 // Styles
 import styles from "./Product.module.css";
-import { useModal } from "../../../hooks/useModal";
+
+import { useContext } from "react";
+import { ShoppingCartContext } from "../../../context/shoppingCartContext";
 
 interface ProductProps {
   product: Product;
@@ -24,10 +26,9 @@ const {
 } = styles;
 
 const ProductCard = ({ product: productObj }: ProductProps): JSX.Element => {
-  const { Modal, openModal } = useModal(<p>Hola mundo</p>);
+  const { addToCart } = useContext(ShoppingCartContext);
   return (
     <div className={productStyle}>
-      <Modal />
       <div className={productImage}>
         <img src={productObj.thumbnail} alt="" />
       </div>
@@ -38,8 +39,10 @@ const ProductCard = ({ product: productObj }: ProductProps): JSX.Element => {
           <span>{currency(productObj.price)}</span>
         </div>
         <div className={productFooter}>
-          {/* <Button onClick={() => addToCart(product)}>Añadir al carrito</Button> */}
-          <Button onClick={openModal}>Añadir al carrito</Button>
+          <Button onClick={() => addToCart(productObj)}>
+            Añadir al carrito
+          </Button>
+          {/* <Button onClick={openModal}>Añadir al carrito</Button> */}
           <a>Ver mas</a>
         </div>
       </div>

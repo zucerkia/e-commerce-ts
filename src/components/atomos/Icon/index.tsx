@@ -3,7 +3,7 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 type IconProps = {
   size: string;
-  className: string;
+  className?: string;
   name: IconProp;
 };
 

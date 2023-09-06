@@ -9,7 +9,7 @@ const Home = () => {
     <>
       <h1>Productos</h1>
       <Products>
-        {products.map(({ description, title, thumbnail, price }) => (
+        {products.map(({ description, title, thumbnail, price, id }) => (
           <ProductCard
             key={title}
             product={{
@@ -17,6 +17,7 @@ const Home = () => {
               title,
               thumbnail,
               price,
+              id,
             }}
           />
         ))}

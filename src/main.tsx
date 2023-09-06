@@ -5,15 +5,19 @@ import {
   fas,
   faShoppingCart,
   faXmark,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 
 import App from "./App.tsx";
 import "./index.css";
+import { ShoppingCartProvider } from "./context/shoppingCartContext.tsx";
 
-library.add(fas, faShoppingCart, faXmark);
+library.add(fas, faShoppingCart, faXmark, faTrashCan);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <ShoppingCartProvider>
+      <App />
+    </ShoppingCartProvider>
   </React.StrictMode>
 );
