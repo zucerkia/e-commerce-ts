@@ -1,70 +1,54 @@
-import { PropsWithChildren, createContext, useState } from "react";
+import { PropsWithChildren, createContext, useReducer } from "react";
+
 import { Product } from "../types/Products";
-import { ShoppingCart } from "../types/ShoppingCart";
+import { State, shoppingCartReducer } from "../store/shoppingCartReducer";
+import { addItem, removeItem } from "../store/actions";
+import { ActionTypes } from "../store/actions/types";
 
 type ShoppingCartContext = {
-  shoppingCart: ShoppingCart;
+  state: State;
   addToCart: (product: Product) => void;
   deleteItem: (id: number) => void;
 };
 
-const initialValue = {
+const initialState: State = {
   shoppingCart: {
     items: {},
     total: 0,
   },
+  counter: 0,
+};
+
+const initialContext: ShoppingCartContext = {
+  state: initialState,
   addToCart: () => null,
   deleteItem: () => null,
 };
 
 export const ShoppingCartContext =
-  createContext<ShoppingCartContext>(initialValue);
+  createContext<ShoppingCartContext>(initialContext);
 
 export const ShoppingCartProvider = ({ children }: PropsWithChildren) => {
-  const [shoppingCart, setShoppingCart] = useState<ShoppingCart>(
-    initialValue.shoppingCart
-  );
+  // const [shoppingCart, setShoppingCart] = useState<ShoppingCart>(
+  //   initialValue.shoppingCart
+  // );
 
-  /* 
-  TODO: 
-    ¿Como calcular el precio cuando se tiene multiple cantidad de un mismo producto? 
-    ¿será mejor tener una nueva propiedad en el objeto que tenga un subtotal?
-  */
+  const [state, dispatch] = useReducer(shoppingCartReducer, initialState);
+
   const addToCart = (product: Product) => {
-    setShoppingCart(({ items, total }) => {
-      const newTotal = total;
-      let newItem = { product, quantity: 1 };
-
-      if (items[product.id]) {
-        newItem = { ...items[product.id] };
-        newItem.quantity += 1;
-      }
-
-      return {
-        items: { ...items, [product.id]: newItem },
-        total: newTotal + 1,
-      };
-    });
+    dispatch(addItem(product));
+    // dispatch({
+    //   type: ActionTypes.ADD_ITEM,
+    //   payload: product
+    // })
   };
 
   const deleteItem = (id: number) => {
-    setShoppingCart(({ items, total }) => {
-      const totalItem = items[id].quantity;
-
-      const newItems = { ...items };
-      delete newItems[id];
-
-      return {
-        items: newItems,
-        total: total - totalItem,
-      };
-    });
+    dispatch(removeItem(id));
   };
 
   return (
-    <ShoppingCartContext.Provider
-      value={{ shoppingCart, addToCart, deleteItem }}
-    >
+    <ShoppingCartContext.Provider value={{ state, addToCart, deleteItem }}>
       {children}
     </ShoppingCartContext.Provider>
   );

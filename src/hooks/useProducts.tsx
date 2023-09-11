@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // Api
 import { get } from "../api";
@@ -19,16 +19,16 @@ export const useProducts = () => {
   //     }
   //   };
 
-  const getProducts = async () => {
+  const getProducts = useCallback(async () => {
     const response = await get<ProductsResponse>(
       "https://dummyjson.com/products"
     );
     setProducts(response.products);
-  };
+  }, []);
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
 
   return {
     products,

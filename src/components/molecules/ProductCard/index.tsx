@@ -10,7 +10,7 @@ import { Product } from "../../../types/Products";
 // Styles
 import styles from "./Product.module.css";
 
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { ShoppingCartContext } from "../../../context/shoppingCartContext";
 
 interface ProductProps {
@@ -27,6 +27,11 @@ const {
 
 const ProductCard = ({ product: productObj }: ProductProps): JSX.Element => {
   const { addToCart } = useContext(ShoppingCartContext);
+
+  const showCurrency = useMemo(() => {
+    return currency(productObj.price);
+  }, [productObj.price]);
+
   return (
     <div className={productStyle}>
       <div className={productImage}>
@@ -36,7 +41,7 @@ const ProductCard = ({ product: productObj }: ProductProps): JSX.Element => {
         <div className={productInfo}>
           <h3>{productObj.title}</h3>
           <p>{productObj.description}</p>
-          <span>{currency(productObj.price)}</span>
+          <span>{showCurrency}</span>
         </div>
         <div className={productFooter}>
           <Button onClick={() => addToCart(productObj)}>
