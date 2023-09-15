@@ -33,9 +33,9 @@ const ModalLayout = ({
           <Icon name="xmark" size="18px" onClick={onClose} />
         </div>
         <div className={modalBody}>{children}</div>
-        <div className={modalFooter}>
+        {/* <div className={modalFooter}>
           <Button onClick={onClose}> Aceptar </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

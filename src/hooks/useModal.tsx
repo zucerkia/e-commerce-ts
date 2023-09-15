@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import ModalLayout from "../templates/ModalLayout";
 
-export const useModal = (component: React.ReactNode) => {
+export const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [component, setComponent] = useState<React.ReactNode>();
 
-  const openModal = () => {
+  const openModal = (component: React.ReactNode) => {
+    setComponent(component);
     setIsOpen(true);
   };
 

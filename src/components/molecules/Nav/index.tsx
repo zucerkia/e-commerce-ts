@@ -1,16 +1,14 @@
 import { ShoppingCartBadge } from "..";
 import { useModal } from "../../../hooks/useModal";
 import { Button } from "../../atomos/Button";
+import LoginForm from "../../organisms/LoginForm";
+import RegisterForm from "../../organisms/RegisterForm";
 
 import styles from "./Nav.module.css";
 
 const { headerNav, headerLinks, link } = styles;
 const Nav = () => {
-  const { Modal, openModal } = useModal(
-    <p>
-      login <input type="color" />
-    </p>
-  );
+  const { Modal, openModal, closeModal } = useModal();
   const getAuth = false;
   return (
     <nav className={headerNav}>
@@ -27,8 +25,14 @@ const Nav = () => {
       {/* <CartButton /> */}
       {!getAuth ? (
         <div>
-          <Button onClick={openModal}> Iniciar sesión </Button>
-          <Button onClick={() => {}} as="secondary">
+          <Button onClick={() => openModal(<LoginForm />)}>
+            {" "}
+            Iniciar sesión{" "}
+          </Button>
+          <Button
+            onClick={() => openModal(<RegisterForm closeModal={closeModal} />)}
+            as="secondary"
+          >
             Regístrate
           </Button>
         </div>

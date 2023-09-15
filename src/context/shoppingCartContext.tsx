@@ -1,9 +1,9 @@
 import { PropsWithChildren, createContext, useReducer } from "react";
+import { toast } from "react-hot-toast";
 
 import { Product } from "../types/Products";
 import { State, shoppingCartReducer } from "../store/shoppingCartReducer";
 import { addItem, removeItem } from "../store/actions";
-import { ActionTypes } from "../store/actions/types";
 
 type ShoppingCartContext = {
   state: State;
@@ -37,6 +37,9 @@ export const ShoppingCartProvider = ({ children }: PropsWithChildren) => {
 
   const addToCart = (product: Product) => {
     dispatch(addItem(product));
+    toast.success("Se ha agregado un producto al carrito", {
+      position: "top-right",
+    });
     // dispatch({
     //   type: ActionTypes.ADD_ITEM,
     //   payload: product

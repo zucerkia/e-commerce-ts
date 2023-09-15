@@ -8,12 +8,12 @@ import CartList from "../CartList";
 
 const { cartButton, cartIcon, cartBadge } = styles;
 const ShoppingCartBadge = () => {
-  const { Modal, openModal } = useModal(<CartList />);
+  const { Modal, openModal } = useModal();
   const { state } = useContext(ShoppingCartContext);
 
   return (
     <>
-      <button onClick={openModal} className={cartButton}>
+      <button onClick={() => openModal(<CartList />)} className={cartButton}>
         <Icon className={cartIcon} name="shopping-cart" size="18px" />
         <span className={cartBadge}>{state.shoppingCart.total}</span>
       </button>
